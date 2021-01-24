@@ -10,7 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     src/main.cpp \
-    src/views/MainWindow.cpp
+    src/views/MainWindow.cpp \
+    src/views/PlannerColumn.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -18,7 +19,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    src/views/MainWindow.ui
+    src/views/MainWindow.ui \
+    src/views/PlannerColumn.ui
 
 HEADERS += \
-    src/views/MainWindow.h
+    src/views/MainWindow.h \
+    src/views/PlannerColumn.h
