@@ -14,11 +14,15 @@ PlannerColumn::~PlannerColumn() {
 }
 
 void PlannerColumn::setupView() {
-    ui->vLayout->setAlignment(Qt::AlignTop);
-    ui->verticalLayout->setAlignment(Qt::AlignTop);
+    ui->vLayoutGrBoxDude->setAlignment(Qt::AlignTop);
+    ui->vLayoutItems->setAlignment(Qt::AlignTop);
 }
 
 void PlannerColumn::on_pbNew_clicked() {
-    ui->vLayout->insertWidget(0, new QPushButton{ "My dude" });
-    qInfo() << "Dude width " << size().width() << "Dude height " << size().height() << "\n";
+    ui->vLayoutItems->insertWidget(0, new QPushButton{ "My dude" });
+
+#ifdef QT_DEBUG
+    qDebug() << objectName() << " size " << size()
+             << ui->grBoxDude->objectName() << " size " << ui->grBoxDude->size() << "\n";
+#endif
 }

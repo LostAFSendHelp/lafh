@@ -17,10 +17,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupView() {
     // Setup view here
-    ui->scrollAreaHLayout->setAlignment(Qt::AlignLeading);
+    ui->hLayoutMain->setAlignment(Qt::AlignLeading);
+
+#ifdef QT_DEBUG
+    ui->frMain->setFrameShape(QFrame::Box);
+#endif
+
 }
 
 void MainWindow::on_pbAddNewColumn_clicked()
 {
-    ui->scrollAreaHLayout->addWidget(new PlannerColumn, 0, Qt::AlignTop);
+    ui->hLayoutMain->addWidget(new PlannerColumn);
 }
