@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     src/main.cpp \
+    src/views/AddColumnView.cpp \
     src/views/MainWindow.cpp \
     src/views/PlannerColumn.cpp
 
@@ -19,9 +20,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    src/views/AddColumnView.ui \
     src/views/MainWindow.ui \
     src/views/PlannerColumn.ui
 
 HEADERS += \
+    src/views/AddColumnView.h \
     src/views/MainWindow.h \
     src/views/PlannerColumn.h

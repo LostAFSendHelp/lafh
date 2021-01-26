@@ -12,7 +12,9 @@ class PlannerColumn : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlannerColumn(QWidget *parent = nullptr);
+    const QString mColumnName;
+
+    explicit PlannerColumn(QWidget *parent = nullptr, const QString& columnName = QString("Column %0").arg(sCount));
     ~PlannerColumn();
 
 private slots:
@@ -22,6 +24,8 @@ private:
     Ui::PlannerColumn *ui;
 
     void setupView();
+
+    static uint16_t sCount;
 };
 
 #endif // PLANNERCOLUMN_H

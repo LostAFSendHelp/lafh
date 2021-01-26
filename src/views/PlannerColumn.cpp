@@ -1,11 +1,15 @@
 ﻿#include "PlannerColumn.h"
 #include "ui_PlannerColumn.h"
 
-PlannerColumn::PlannerColumn(QWidget *parent) :
+uint16_t PlannerColumn::sCount = 0;
+
+PlannerColumn::PlannerColumn(QWidget *parent, const QString& columnName) :
     QWidget(parent),
+    mColumnName(columnName),
     ui(new Ui::PlannerColumn)
 {
     ui->setupUi(this);
+    ++sCount;
     setupView();
 }
 
@@ -16,6 +20,7 @@ PlannerColumn::~PlannerColumn() {
 void PlannerColumn::setupView() {
     ui->vLayoutGrBoxDude->setAlignment(Qt::AlignTop);
     ui->vLayoutItems->setAlignment(Qt::AlignTop);
+    ui->grBoxDude->setTitle(mColumnName);
 }
 
 void PlannerColumn::on_pbNew_clicked() {

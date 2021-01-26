@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_pbAddNewColumn_clicked();
+    void addNewColumn(const QString& columnName);
 
 private:
     Ui::MainWindow *ui;
