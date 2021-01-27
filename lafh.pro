@@ -10,6 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     src/main.cpp \
+    src/models/PlannerItem.cpp \
+    src/repositories/PlannerItemRepo.cpp \
     src/views/AddColumnView.cpp \
     src/views/MainWindow.cpp \
     src/views/PlannerColumn.cpp
@@ -25,6 +27,10 @@ FORMS += \
     src/views/PlannerColumn.ui
 
 HEADERS += \
+    src/models/PlannerItem.h \
+    src/repositories/PlannerItemRepo.h \
     src/views/AddColumnView.h \
     src/views/MainWindow.h \
     src/views/PlannerColumn.h
+
+INCLUDEPATH += src
