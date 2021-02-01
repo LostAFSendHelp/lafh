@@ -19,6 +19,7 @@ public:
 
 private slots:
     void on_pbNew_clicked();
+    void onPlannerItemCreatedSlot(const QString& title, const QString& description);
 
 private:
     Ui::PlannerColumn *ui;

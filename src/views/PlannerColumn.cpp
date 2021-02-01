@@ -1,5 +1,6 @@
 ﻿#include "PlannerColumn.h"
 #include "ui_PlannerColumn.h"
+#include "CreatePlannerItemDialog.h"
 
 uint16_t PlannerColumn::sCount = 0;
 
@@ -24,10 +25,14 @@ void PlannerColumn::setupView() {
 }
 
 void PlannerColumn::on_pbNew_clicked() {
-    ui->vLayoutItems->insertWidget(0, new QPushButton{ "My dude" });
+    CreatePlannerItemDialog dialog{ this };
+    QObject::connect(&dialog,
+                     SIGNAL(onPlannerItemCreatedSignal(const QString&, const QString&)),
+                     this,
+                     SLOT(onPlannerItemCreatedSlot(const QString&, const QString&)));
+    dialog.exec();
+}
 
-#ifdef QT_DEBUG
-    qDebug() << objectName() << " size " << size()
-             << ui->grBoxDude->objectName() << " size " << ui->grBoxDude->size() << "\n";
-#endif
+void PlannerColumn::onPlannerItemCreatedSlot(const QString& title, const QString& description) {
+    ui->vLayoutItems->addWidget(new QPushButton{ title });
 }
