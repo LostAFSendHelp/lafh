@@ -1,6 +1,7 @@
 ﻿#include "PlannerColumn.h"
 #include "ui_PlannerColumn.h"
 #include "CreatePlannerItemDialog.h"
+#include "PlannerItemCard.h"
 
 uint16_t PlannerColumn::sCount = 0;
 
@@ -34,5 +35,6 @@ void PlannerColumn::on_pbNew_clicked() {
 }
 
 void PlannerColumn::onPlannerItemCreatedSlot(const QString& title, const QString& description) {
-    ui->vLayoutItems->addWidget(new QPushButton{ title });
+    auto card = new PlannerItemCard{ nullptr, title, description };
+    ui->vLayoutItems->addWidget(card);
 }

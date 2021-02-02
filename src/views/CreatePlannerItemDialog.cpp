@@ -15,5 +15,5 @@ CreatePlannerItemDialog::~CreatePlannerItemDialog()
 
 void CreatePlannerItemDialog::on_buttonBoxMain_accepted()
 {
-    emit onPlannerItemCreatedSignal(ui->leditItemTitle->text(), QString(""));
+    emit onPlannerItemCreatedSignal(ui->leditItemTitle->text(), ui->pleditItemDescription->toPlainText());
 }
