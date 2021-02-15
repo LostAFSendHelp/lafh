@@ -1,15 +1,12 @@
-QT       += core gui
+QT       += core gui network networkauth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
 SOURCES += \
     src/main.cpp \
+    src/services/JiraClient.cpp \
     src/views/AddColumnView.cpp \
     src/views/CreatePlannerItemDialog.cpp \
     src/views/MainWindow.cpp \
@@ -30,10 +27,34 @@ FORMS += \
     src/views/PlannerItemCard.ui \
     src/views/PlannerItemDetailsDialog.ui
 
+CONFIG += warn_off
+
 HEADERS += \
+    src/services/JiraClient.h \
     src/views/AddColumnView.h \
     src/views/CreatePlannerItemDialog.h \
     src/views/MainWindow.h \
     src/views/PlannerColumn.h \
     src/views/PlannerItemCard.h \
     src/views/PlannerItemDetailsDialog.h
+
+INCLUDEPATH += \
+    src/
+
+DISTFILES += \
+    assets/credentials.json \
+    assets/placeholder.txt
+
+CONFIG(debug, debug|release) {
+    path = debug
+}
+
+CONFIG(release, debug|release) {
+    path = release
+}
+
+message(Building for config: $$path)
+
+win32 {
+    QMAKE_POST_LINK += robocopy $$PWD/assets $$OUT_PWD/$$path/assets /E >nul
+}

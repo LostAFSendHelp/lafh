@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "services/JiraClient.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,7 +22,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    JiraClient m_JiraClient;
 
+private:
     void setupView();
 };
 

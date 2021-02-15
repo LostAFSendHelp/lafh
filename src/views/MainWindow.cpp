@@ -5,7 +5,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_JiraClient(this)
 {
     ui->setupUi(this);
     setupView();
@@ -28,6 +29,11 @@ void MainWindow::setupView() {
                      this,
                      SLOT(addNewColumn(const QString&)));
 
+    // Setup Jira client
+    connect(&m_JiraClient, &JiraClient::authenticated, [=]() {
+        ui->pbAddNewColumn->setText("Auth");
+    });
+
 #ifdef QT_DEBUG
     ui->frMain->setFrameShape(QFrame::Box);
 #endif
@@ -36,7 +42,7 @@ void MainWindow::setupView() {
 
 void MainWindow::on_pbAddNewColumn_clicked()
 {
-    ui->hLayoutMain->addWidget(new PlannerColumn);
+    m_JiraClient.authorize();
 }
 
 void MainWindow::addNewColumn(const QString& columnName) {
