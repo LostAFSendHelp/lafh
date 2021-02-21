@@ -10,6 +10,7 @@ JiraClient::JiraClient(QObject* parent):
     m_Auth(QUrl(s_AuthUrl), QUrl(s_TokenUrl), new QNetworkAccessManager{ this }, this)
 {
     setupAuth();
+    qDebug() << m_Auth.token() << "\n";
 }
 
 void JiraClient::authorize() {
@@ -42,13 +43,11 @@ void JiraClient::setupAuth() {
     m_Auth.setReplyHandler(&m_ReplyHandler);
     m_Auth.setClientIdentifier(m_ClientID);
     m_Auth.setClientIdentifierSharedKey(m_ClientSecret);
-    m_Auth.setScope("read:jira-user write:jira-work read:jira-work");
+    m_Auth.setScope(m_Scope);
 
-    connect(&m_Auth, &QOAuth2AuthorizationCodeFlow::statusChanged, [=](const QAbstractOAuth::Status& status) {
-        if (status == QAbstractOAuth::Status::Granted) {
-            emit authenticated();
-            qDebug() << m_Auth.token() << "\n";
-        }
+    connect(&m_Auth, &QOAuth2AuthorizationCodeFlow::granted, [=]() {
+        emit authenticated();
+        qDebug() << m_Auth.token() << "\n";
     });
 
     m_Auth.setModifyParametersFunction([=](const QAbstractOAuth::Stage stage, QVariantMap* params) {
