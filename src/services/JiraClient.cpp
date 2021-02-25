@@ -10,7 +10,6 @@ JiraClient::JiraClient(QObject* parent):
     m_Auth(QUrl(s_AuthUrl), QUrl(s_TokenUrl), new QNetworkAccessManager{ this }, this)
 {
     setupAuth();
-    qDebug() << m_Auth.token() << "\n";
 }
 
 void JiraClient::authorize() {
@@ -19,22 +18,25 @@ void JiraClient::authorize() {
 
 void JiraClient::init() {
     QFile file;
+    file.setFileName(":/services/credentials/assets/credentials.json");
 
-    #ifdef QT_DEBUG
-        QString subpath("debug");
-    #else
-        QString subpath("release");
-    #endif
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Error reading resource file" << "\n";
+        return;
+    }
 
-    file.setFileName(QString("%0/%1/assets/credentials.json").arg(QDir::currentPath()).arg(subpath));
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
     QByteArray buffer = file.readAll();
     file.close();
+
     QJsonDocument document{ QJsonDocument::fromJson(buffer) };
     auto jiraCreds = document["jira"];
     m_ClientID = jiraCreds["client_id"].toString();
     m_ClientSecret = jiraCreds["client_secret"].toString();
     m_Scope = jiraCreds["scope"].toString();
+
+    qDebug() << m_ClientID << "\n"
+             << m_ClientSecret << "\n"
+             << m_Scope << "\n";
 }
 
 void JiraClient::setupAuth() {

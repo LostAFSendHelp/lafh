@@ -45,16 +45,5 @@ DISTFILES += \
     assets/credentials.json \
     assets/placeholder.txt
 
-CONFIG(debug, debug|release) {
-    path = debug
-}
-
-CONFIG(release, debug|release) {
-    path = release
-}
-
-message(Building for config: $$path)
-
-win32 {
-    QMAKE_POST_LINK += robocopy $$PWD/assets $$OUT_PWD/$$path/assets /E >nul
-}
+RESOURCES += \
+    lafh-resource.qrc
